@@ -1,5 +1,26 @@
 const API = "http://localhost:8000";
 
+// ── Theme Toggle ──────────────────────────────────
+function initTheme() {
+  const saved = localStorage.getItem('theme') || 'light';
+  applyTheme(saved);
+}
+
+function applyTheme(theme) {
+  document.documentElement.setAttribute('data-theme', theme);
+  const btn = document.getElementById('theme-btn');
+  btn.textContent = theme === 'dark' ? '☀️' : '🌙';
+  btn.title = theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode';
+  localStorage.setItem('theme', theme);
+}
+
+function toggleTheme() {
+  const current = document.documentElement.getAttribute('data-theme');
+  applyTheme(current === 'dark' ? 'light' : 'dark');
+}
+
+initTheme();
+
 // ── Page Navigation ───────────────────────────────
 function showPage(name) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));

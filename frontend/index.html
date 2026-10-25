@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My App</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">MyApp</div>
+  <div class="nav-links">
+    <button class="nav-btn active" onclick="showPage('blog')">Blog</button>
+    <button class="nav-btn" onclick="showPage('calendar')">Calendar</button>
+  </div>
+</nav>
+
+<!-- ── BLOG PAGE ─────────────────────────────────── -->
+<main id="page-blog" class="page active">
+  <div class="page-header">
+    <h1>Blog</h1>
+    <button class="btn-primary" onclick="openPostModal()">+ New Post</button>
+  </div>
+
+  <div class="tab-row">
+    <button class="tab active" onclick="loadPosts('all', this)">All</button>
+    <button class="tab" onclick="loadPosts('published', this)">Published</button>
+    <button class="tab" onclick="loadPosts('draft', this)">Drafts</button>
+  </div>
+
+  <div id="posts-list" class="posts-list"></div>
+</main>
+
+<!-- ── CALENDAR PAGE ─────────────────────────────── -->
+<main id="page-calendar" class="page">
+  <div class="page-header">
+    <h1>Calendar</h1>
+    <button class="btn-primary" onclick="openEventModal()">+ New Event</button>
+  </div>
+
+  <div class="calendar-layout">
+    <div class="calendar-grid-wrap">
+      <div class="cal-nav">
+        <button class="cal-arrow" onclick="changeMonth(-1)">&#8249;</button>
+        <span id="cal-title"></span>
+        <button class="cal-arrow" onclick="changeMonth(1)">&#8250;</button>
+      </div>
+      <div class="cal-grid" id="cal-grid"></div>
+    </div>
+    <div class="events-panel">
+      <h2 class="panel-title">Upcoming Events</h2>
+      <div id="events-list"></div>
+    </div>
+  </div>
+</main>
+
+<!-- ── POST MODAL ─────────────────────────────────── -->
+<div id="post-modal" class="modal-overlay hidden">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 id="post-modal-title">New Post</h2>
+      <button class="modal-close" onclick="closePostModal()">×</button>
+    </div>
+    <input id="post-title" class="field" type="text" placeholder="Post title">
+    <textarea id="post-content" class="field field-area" placeholder="Write your post here..."></textarea>
+    <div class="modal-footer">
+      <select id="post-status" class="field-sm">
+        <option value="draft">Save as Draft</option>
+        <option value="published">Publish</option>
+      </select>
+      <button class="btn-primary" onclick="savePost()">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── EVENT MODAL ────────────────────────────────── -->
+<div id="event-modal" class="modal-overlay hidden">
+  <div class="modal modal-sm">
+    <div class="modal-header">
+      <h2 id="event-modal-title">New Event</h2>
+      <button class="modal-close" onclick="closeEventModal()">×</button>
+    </div>
+    <input id="event-name" class="field" type="text" placeholder="Event name">
+    <input id="event-date" class="field" type="date">
+    <textarea id="event-note" class="field field-area-sm" placeholder="Notes (optional)"></textarea>
+    <div class="modal-footer">
+      <button class="btn-secondary" onclick="closeEventModal()">Cancel</button>
+      <button class="btn-primary" onclick="saveEvent()">Save Event</button>
+    </div>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

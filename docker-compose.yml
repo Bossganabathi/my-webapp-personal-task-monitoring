@@ -1,0 +1,27 @@
+version: "3.9"
+
+services:
+
+  backend:
+    build: ./backend
+    container_name: myapp-backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app         # sync local code changes
+      - sqlite-data:/app/data  # persist the database
+    environment:
+      - DB_PATH=/app/data/app.db
+    restart: unless-stopped
+
+  frontend:
+    build: ./frontend
+    container_name: myapp-frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+volumes:
+  sqlite-data:
